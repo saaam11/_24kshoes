@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>24k Shoes - Zapatillas y más</title>
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      color: #000;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      background: #fff;
+      border-bottom: 2px solid #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      z-index: 100;
+    }
+    header h1 {
+      font-weight: 900;
+      font-size: 1.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      gap: 2rem;
+    }
+    nav a {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.6rem;
+      border-radius: 3px;
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 70vh;
+      background: url('imagenes/24kshoes.jpg') center/cover no-repeat;
+      position: relative;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(0,0,0,0.7);
+      margin-bottom: 3rem;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 700px;
+      padding: 0 1rem;
+    }
+    .hero-content h2 {
+      font-size: 3rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.3em;
+      margin-bottom: 1rem;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .btn-primary {
+      background-color: #000;
+      color: #fff;
+      padding: 1rem 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #222;
+    }
+
+    /* Products section */
+    .products {
+      max-width: 1200px;
+      margin: 0 auto 5rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 2.5rem;
+    }
+    .product-card {
+      border: 1.5px solid #000;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      background: #fff;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .product-card:hover {
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+      transform: translateY(-8px);
+    }
+    .product-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      filter: grayscale(90%);
+      transition: filter 0.3s ease;
+    }
+    .product-card:hover .product-image {
+      filter: none;
+    }
+    .product-info {
+      padding: 1.8rem 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-info h3 {
+      font-weight: 800;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .product-info p {
+      font-size: 1rem;
+      color: #222;
+      flex-grow: 1;
+      margin-bottom: 1.3rem;
+    }
+    .product-info .price {
+      font-weight: 900;
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+    .btn-buy {
+      align-self: flex-start;
+      padding: 0.7rem 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 2px solid #000;
+      cursor: pointer;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      border-radius: 6px;
+      color: #000;
+    }
+    .btn-buy:hover {
+      background-color: #000;
+      color: #fff;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      border-top: 2px solid #000;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      user-select: none;
+    }
+
+    /* WhatsApp floating button */
+    #whatsapp-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: hsl(138, 98%, 49%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+    #whatsapp-btn:hover {
+      background: #222;
+    }
+    #whatsapp-btn svg {
+      fill: #fff;
+      width: 32px;
+      height: 32px;
+    }
+
+#instagram-btn {
+  position: fixed;
+  bottom: 100px; /* un poco más arriba que WhatsApp */
+  right: 30px;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+#instagram-btn:hover {
+  transform: scale(1.1);
+}
+#instagram-btn svg {
+  fill: white;
+  width: 28px;
+  height: 28px;
+}
+
+
+    /* Responsive */
+    @media(max-width: 768px) {
+      header {
+        padding: 1rem 2rem;
+      }
+      .hero {
+        height: 50vh;
+      }
+      .hero-content h2 {
+        font-size: 2.2rem;
+        letter-spacing: 0.15em;
+      }
+      .hero-content p {
+        font-size: 1rem;
+      }
+      .products {
+        padding: 0 1rem;
+        gap: 1.8rem;
+      }
+      .product-card {
+        border-width: 1px;
+      }
+      .product-image {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>24kshoes</h1>
+    <nav>
+      <a href="#products">Productos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero" aria-label="Sección principal de bienvenida">
+    <div class="hero-content">
+      <h2>Tus zapas favoritas están acá</h2>
+      <p>Diseño, calidad y estilo para tu paso seguro. Descubrí nuestra colección exclusiva.</p>
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Ver productos</button>
+    </div>
+  </section>
+
+  <main id="products" aria-label="Catálogo de productos">
+    <article class="product-card" tabindex="0">
+      <img src="imagenes/KNU CLASICAS 2.jpg" alt="Zapatillas modelo KNU Clásicas de 24kshoes" class="product-image" />
+      <div class="product-info">
+        <h3>KNU CLASICAS</h3>
+        <p>Zapatillas Clásicas – estilo urbano,Comodidad y actitud en cada paso..</p>
+        <div class="price">$65,000</div>
+        <a href="https://wa.me/5493417491978?text=Hola%20buenas%2C%20me%20interesan%20las%20KNU%20CLASICAS%2C%20de%20talle..." target="_blank">
+  <button class="btn-buy">Comprar</button>
+</a>
+    </article>
+
+    <article class="product-card" tabindex="0">
+      <img src="imagenes/KNU CUADRITOS.jpg" alt="Zapatillas modelo KNU Cuadritos de 24kshoes" class="product-image" />
+      <div class="product-info">
+        <h3>KNU CUADRITOS</h3>
+        <p>Estilo que se siente, tecnología que se nota</p>
+        <div class="price">$65,000</div>
+        <a href="https://wa.me/5493417491978?text=Hola%20buenas%2C%20me%20interesan%20las%20KNU%20CUADRITOS%2C%20de%20talle..." target="_blank">
+  <button class="btn-buy">Comprar</button>
+</a>
+    </article>
+
+  <footer id="contacto" aria-label="Información de contacto">
+    <p>¿Tenés dudas o querés asesoramiento? Escribinos por WhatsApp.</p>
+    <p><strong>24kshoes© 2025</strong></p>
+  </footer>
+
+  <!-- WhatsApp floating button -->
+  <a href="https://wa.me/+5493417491978" target="_blank" id="whatsapp-btn" aria-label="Escribinos por WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M20.52 3.48a11.68 11.68 0 00-16.56 0 11.73 11.73 0 00-3.43 8.32 11.87 11.87 0 003.48 8.44l-1.4 4.88 5.01-1.34a11.82 11.82 0 006.92 2.27 11.73 11.73 0 008.3-3.42 11.73 11.73 0 000-16.55zM12.04 20.82a8.65 8.65 0 01-4.54-1.27l-.32-.19-3 0.8.8-2.91-.21-.33a8.66 8.66 0 012.49-14.1 8.66 8.66 0 018.56 14.56 8.63 8.63 0 01-3.78 1.44zM15.18 13.45c-.26-.13-1.53-.75-1.77-.83-.23-.08-.4-.13-.57.13s-.66.83-.8 1c-.14.16-.29.18-.55.06-.26-.13-1.1-.41-2.1-1.3-.78-.7-1.3-1.56-1.45-1.82-.15-.26-.02-.4.11-.53.12-.12.26-.31.39-.47.13-.16.18-.27.27-.45.09-.18.04-.34-.02-.47-.06-.13-.57-1.37-.78-1.87-.2-.49-.41-.42-.57-.43-.15-.01-.32-.01-.5-.01-.18 0-.47.07-.72.34-.25.27-.95.92-.95 2.25 0 1.33.98 2.62 1.12 2.8.14.18 1.94 2.98 4.7 4.18.66.28 1.18.45 1.59.58.67.21 1.28.18 1.76.11.54-.08 1.53-.62 1.75-1.22.22-.6.22-1.12.15-1.22-.07-.1-.26-.16-.52-.29z"/>
+    </svg>
+  </a>
+
+  <a href="https://www.instagram.com/24kshoess/" target="_blank" id="instagram-btn" aria-label="Seguinos en Instagram">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+    <path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9S160.5 370.9 224.1 370.9 339 319.6 339 255.9 287.7 141 224.1 141zm0 186.6c-39.6 0-71.8-32.2-71.8-71.8s32.2-71.8 71.8-71.8 71.8 32.2 71.8 71.8-32.2 71.8-71.8 71.8zm146.4-194.3c0 14.9-12.1 27-27 27s-27-12.1-27-27 12.1-27 27-27 27 12.1 27 27zm76.1 27.2c-1.7-35.3-9.9-66.7-36.2-93C384.9 34.4 353.5 26.2 318.2 24.5 281.4 22.7 167 22.7 130.2 24.5 94.9 26.2 63.5 34.4 37.2 60.7 10.9 87 2.7 118.4.9 153.7-.9 190.5-.9 305 1 341.8c1.7 35.3 9.9 66.7 36.2 93s57.7 34.5 93 36.2c36.8 1.8 151.2 1.8 188 0 35.3-1.7 66.7-9.9 93-36.2s34.5-57.7 36.2-93c1.8-36.8 1.8-151.2 0-188zm-48.3 228c-7.8 19.5-22.9 34.6-42.4 42.4-29.4 11.7-99.2 9-132.8 9s-103.4 2.6-132.8-9c-19.5-7.8-34.6-22.9-42.4-42.4-11.7-29.4-9-99.2-9-132.8s-2.6-103.4 9-132.8c7.8-19.5 22.9-34.6 42.4-42.4 29.4-11.7 99.2-9 132.8-9s103.4-2.6 132.8 9c19.5 7.8 34.6 22.9 42.4 42.4 11.7 29.4 9 99.2 9 132.8s2.7 103.4-9 132.8z"/>
+  </svg>
+</a>
+
+</body>
+</html>
